@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-demo",
+  "name": "X Management System",
   "version": "1.0.0",
   "description": "as title...",
   "author": "Kuro",
@@ -13,6 +13,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
+    "iview": "^3.0.0",
+    "npm": "^6.3.0",
     "nuxt": "^1.0.0"
   },
   "devDependencies": {
@@ -20,11 +23,13 @@
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0"
+    "eslint-plugin-vue": "^4.0.0",
+    "less": "^3.8.0",
+    "less-loader": "^4.1.0"
   },
-  "config":{
-    "nuxt":{
-      "port":"8868"
+  "config": {
+    "nuxt": {
+      "port": "8868"
     }
   }
 }

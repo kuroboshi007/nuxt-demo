@@ -1,4 +1,4 @@
-# 项目搭建流程
+# 项目搭建流程笔记
   
 
 ## 搭建环境  
@@ -22,7 +22,7 @@ $ npm install # Or yarn install
 ``` bash
 npm install
 ```
-这个过程是要等一会的，如果你这个过程安装失败，也不要慌张，你可以直接诶删除项目中的node_modules文件夹后，重新npm install进行安装。
+安装失败时可以直接删除项目中的node_modules文件夹，之后再重新安装。
 
 4. npm run dev 启动服务
 
@@ -51,7 +51,7 @@ tips：严格模式下最后一个 , 记得省略，不然会报错
 
 ## 常用配置  
 
-#### head
+### head
 使用 head 方法设置当前页面的头部标签。就是html的<head></head>部分  
   
 > nuxt.config.js 
@@ -89,8 +89,110 @@ export default {
 }
 ```
 官方提醒
-
 >注意：为了避免子组件中的meta标签不能正确覆盖父组件中相同的标签而产生重复的现象，建议利用 hid 键为meta标签配一个唯一的标识编号。请阅读关于 [vue-meta] 的更多信息。
+
+
+### 全局CSS 
+
+将放置在 */assets/css/normailze.css*全局引用
+
+>/nuxt.config.js
+
+```bash
+css:[
+  '~assets/css/normailze.css',
+  '...css...'
+],
+```
+
+
+
+### 插件 
+
+项目里用到了iview UI组件，示例就用iview 
+
+1. 安装 
+
+```bash
+$ npm install iview --save
+```
+  
+
+2. 引用 
+
+```bash
+1. plugins/iview.js配置文件中，引入iview
+  import Vue from 'vue'
+  import iView from 'iview';
+
+Vue.use(iView);
+
+2. /nuxt.config.js增加plugins并引入iview.js
+  plugins: [
+    { src: '~/plugins/iview.js', ssr: true }
+  ],
+```
+  
+
+### loading
+Nuxt 有默认的动画，可对其进行修改。  
+页面切换的时候如果不想显示加载进度条，可以在 nuxt.config.js 里面增加 loading: false 的配置：
+```bash
+module.exports = {
+  loading: false
+}
+```
+更多配置查看[loading]
+  
+
+
+### build
+build 中包含了很多 webpack 选项，比方说loaders,vendor。其中的 babel 选项替代了 .babelrc 文件，意味着关于 babel 的配置都可以在此选项中进行编写。若是有其他的 webpack 配置也可以在此选项中进行配置，笔者的配置如下，多出的配置是 eslint 的配置  
+
+```bash
+build: {
+
+  vendor: ['axios'],
+
+  extend (config, { isDev, isClient }) {
+    if (isDev && isClient) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/
+      })
+    }
+  }...
+},
+```
+>tips: 开启了 SSR 的插件不要放在 vendor 里面，无法正常运行。
+
+### axios 的配置
+在/nuxt.config.js中更改，这里引用的axios是作为nuxt的一个模块，详细配置参考[Nuxt Axios Module]
+
+```bash
+npm install @nuxtjs/axios # Or yarn install  
+
+/nuxt.config.js
+
+  module.exports = {
+    modules: [
+      '@nuxtjs/axios',
+    ],
+
+    axios: {
+      // proxyHeaders: false
+    }
+  }
+```
+
+
+  
+## 路由 
+nuxt会自动生成路由。
+
+
 
 
 
@@ -98,3 +200,5 @@ export default {
 
 
 [vue-meta]: https://github.com/declandewet/vue-meta#lists-of-tags 
+[loading]: https://zh.nuxtjs.org/api/configuration-loading 
+[Nuxt Axios Module]: https://axios.nuxtjs.org/ 

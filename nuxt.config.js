@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'XXX管理系统',
+    title: 'X Management System',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -13,6 +13,10 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  css:[
+    '~assets/normalize.css',
+    // '~assets/theme.less'
+  ],
   /*
   ** Customize the progress bar color
   */
@@ -21,6 +25,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['axios'],
     /*
     ** Run ESLint on save
     */
@@ -34,6 +39,27 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  /* 引入插件 */
+  plugins: [
+    { src: '~/plugins/iview.js', ssr: true }
+  ],
+  modules: [
+    '@nuxtjs/axios'
+  ],
+  axios: {
+    proxy: true
+    // 这里的true也可以是一个包含默认配置的对象
+  },
+  proxy: {  
+    '/rapi': {
+      target: 'https://recommender-api-ms.juejin.im',
+      pathRewrite: { '^/rapi': '' }
+    },
+    '/tapi': {
+      target: 'https://timeline-merger-ms.juejin.im',
+      pathRewrite: { '^/tapi': '' }
+    }
+  },
 }
 
