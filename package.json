@@ -2,7 +2,7 @@
   "name": "X Management System",
   "version": "1.0.0",
   "description": "as title...",
-  "author": "Kuro",
+  "author": "Kuro <https://github.com/kuroboshi007>",
   "private": true,
   "scripts": {
     "dev": "nuxt",
