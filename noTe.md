@@ -1,7 +1,7 @@
 # 项目搭建流程笔记
   
 
-## 搭建环境  
+## 1. 搭建环境  
 
 1. 安装vue-cli，已经安装过的可以省略。  
 
@@ -35,7 +35,7 @@ npm run dev
 
 >/package.json
 
-``` bash
+``` json
 "config":{
     "nuxt":{
       "host":"127.0.0.1", //IP地址
@@ -46,17 +46,17 @@ npm run dev
 tips：严格模式下最后一个 , 记得省略，不然会报错
 
 6. Hello World
-惯例的Hello World。将pages/index.vue下的项目名称改为Hello World
+惯例的Hello World。将pages/index.vue下的项目名称改为Hello World测试。
   
 
-## 常用配置  
+## 2. 常用配置  
 
 ### head
 使用 head 方法设置当前页面的头部标签。就是html的<head></head>部分  
   
 > nuxt.config.js 
 
-``` bash
+``` js
   head: {
     title: 'nuxt-demo',
     meta: [
@@ -71,7 +71,7 @@ tips：严格模式下最后一个 , 记得省略，不然会报错
 ```
 head在子组件中的配置  
 
-``` bash
+``` js
 export default {
   data () {
     return {
@@ -98,7 +98,7 @@ export default {
 
 >/nuxt.config.js
 
-```bash
+```js
 css:[
   '~assets/css/normailze.css',
   '...css...'
@@ -120,7 +120,7 @@ $ npm install iview --save
 
 2. 引用 
 
-```bash
+```js
 1. plugins/iview.js配置文件中，引入iview
   import Vue from 'vue'
   import iView from 'iview';
@@ -137,7 +137,7 @@ Vue.use(iView);
 ### loading
 Nuxt 有默认的动画，可对其进行修改。  
 页面切换的时候如果不想显示加载进度条，可以在 nuxt.config.js 里面增加 loading: false 的配置：
-```bash
+```js
 module.exports = {
   loading: false
 }
@@ -149,7 +149,7 @@ module.exports = {
 ### build
 build 中包含了很多 webpack 选项，比方说loaders,vendor。其中的 babel 选项替代了 .babelrc 文件，意味着关于 babel 的配置都可以在此选项中进行编写。若是有其他的 webpack 配置也可以在此选项中进行配置，笔者的配置如下，多出的配置是 eslint 的配置  
 
-```bash
+```js
 build: {
 
   vendor: ['axios'],
@@ -187,17 +187,82 @@ npm install @nuxtjs/axios # Or yarn install
   }
 ```
 
+## 3. 默认模版和默认布局
+
+### 默认模板
+在根目录下创建一个app.html即可  
+建立了默认模板后需要重启服务器，默认布局不需要
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {{ HEAD }}
+</head>
+<body>
+    {{ APP }}
+</body>
+</html>
+```
+>HEAD和APP都需要大写,HEAD是nuxt.config.js里配置的 head ；APP是 pages 下的主页面
+
+### 默认布局  
+根目录下的layouts/default.vue  
+layouts目录下可创建多个布局，  
+子页面切换
+
+```js
+export default {
+  layout: 'other' // 调用其它layout
+}
+```
+
+
+
+
 
   
-## 路由 
-nuxt会自动生成路由。
+## 4. 路由 
+nuxt.js会根据pages目录自动生成vue路由配置。
 
+### 嵌套路由：
+
+创建内嵌子路由，需要添加一个 Vue 文件，同时添加一个与该文件同名的目录用来存放子视图组件。
+在父级 Vue 文件内增加 <nuxt-child/> 用于显示子视图内容。
+
+### 动态路由
+文件建立时头部加上 **_**  e.g /news/\_id.vue
+
+#### params传递参数
+用法同 vue 相似。  
+```html
+传入
+  <template>
+    <div>
+      <ul>
+        <li><nuxt-link :to="{name:'index'}">HOME</nuxt-link></li>
+        <li><nuxt-link :to="{name:'about'}">ABOUT</nuxt-link></li>
+        <li><nuxt-link :to="{name:'news',params:{newsId:3306}}">NEWS</nuxt-link></li>
+      </ul>
+    </div>
+  </template>
+
+接受
+  <template>
+    <div>
+        <h2>News Index page</h2>
+        <p>NewsID:{{$route.params.newsId}}</p>
+         <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+    </div>
+  </template>
+```
 
 
 
 ## iview 注意事项
 
-1. 使用Iview时候 报：no-parsing-error Parsing error: x-invalid-end-tag 解决办法
+1. 使用Iview时候，报：no-parsing-error Parsing error: x-invalid-end-tag 解决办法
 
 ```bash
 在根目录下 .eslintrc.js 文件 rules 下添加：
@@ -206,10 +271,11 @@ nuxt会自动生成路由。
     npm run dev
 
 ```
-VSCode参考 [vscode解决办法] 
-
+使用vscode还需按以下更改 
+```
+首选项----》设置---》"vetur.validation.template": false
+```
 
 [vue-meta]: https://github.com/declandewet/vue-meta#lists-of-tags 
 [loading]: https://zh.nuxtjs.org/api/configuration-loading 
 [Nuxt Axios Module]: https://axios.nuxtjs.org/ 
-[vscode解决办法]: https://blog.csdn.net/jiaqingge/article/details/80498536 

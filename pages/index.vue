@@ -2,18 +2,17 @@
   <section class="container">
     <div>
       <app-logo/>
-      <h1 class="title">
+      <!-- <h1 class="title">
         Hello World 
-      </h1>
+      </h1> -->
       <h2 class="subtitle">
-        as title...
+        XXX后台管理系统
       </h2>
       <div class="links">
         <nuxt-link to="/login" class="button--green">
         Sign In</nuxt-link>
         <a
           href="#"
-          target="_blank"
           class="button--grey">Sign Up</a>
       </div>
     </div>
@@ -26,21 +25,13 @@ import AppLogo from '~/components/AppLogo.vue'
 export default {
   components: {
     AppLogo
-  }
+  },
+  layout: 'nohead'
 }
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
   display: block;
   font-weight: 300;
   font-size: 100px;

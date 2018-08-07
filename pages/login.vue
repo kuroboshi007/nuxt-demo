@@ -16,8 +16,8 @@
         <FormItem>
           <RadioGroup v-model="formInline.radio">
             <Radio label="manager">管理员登录</Radio>
-            <Radio label="agent">代理商登录</Radio>
-            <Radio label="agent">甲方</Radio>
+            <Radio label="organization_user">代理商登录</Radio>
+            <Radio label="consumer">甲方</Radio>
           </RadioGroup>
         </FormItem>
         <FormItem>
@@ -34,11 +34,12 @@ export default {
   components: {
     AppLogo
   },
+  layout: 'nohead',
   data() {
     return {
       formInline: {
-        user: '',
-        password: '',
+        user: 'smalldata',
+        password: '123456',
         radio: 'manager'
       },
       ruleInline: {
@@ -57,7 +58,15 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.$Message.success('Success!');
-          this.$router.push({ path: '/' });
+          console.log('radio',this.formInline.radio);
+          if(this.formInline.radio ==='manager'){
+            this.$router.push({ path: '/mhome' });
+          }
+          else if(this.formInline.radio ==='organization_user'){
+            this.$router.push({ path: '/ohome' });
+          }else{
+            this.$router.push({ path: '/chome' })
+          }
         } else {
           this.$Message.error('Fail!');
         }
@@ -69,7 +78,6 @@ export default {
 </script>
 <style scoped lang="less">
   .login_item{
-    // margin: 40px 0;
     margin-top: 45px;
   }
   .ivu-radio-group{
