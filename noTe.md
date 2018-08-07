@@ -195,10 +195,21 @@ nuxt会自动生成路由。
 
 
 
+## iview 注意事项
 
+1. 使用Iview时候 报：no-parsing-error Parsing error: x-invalid-end-tag 解决办法
 
+```bash
+在根目录下 .eslintrc.js 文件 rules 下添加：
+    "vue/no-parsing-error": [2, { "x-invalid-end-tag": false }]
+更改后再
+    npm run dev
+
+```
+VSCode参考 [vscode解决办法] 
 
 
 [vue-meta]: https://github.com/declandewet/vue-meta#lists-of-tags 
 [loading]: https://zh.nuxtjs.org/api/configuration-loading 
 [Nuxt Axios Module]: https://axios.nuxtjs.org/ 
+[vscode解决办法]: https://blog.csdn.net/jiaqingge/article/details/80498536 

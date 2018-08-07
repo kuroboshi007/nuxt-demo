@@ -15,6 +15,7 @@ module.exports = {
   },
   css:[
     '~assets/normalize.css',
+    '~assets/common.less',
     // '~assets/theme.less'
   ],
   /*
