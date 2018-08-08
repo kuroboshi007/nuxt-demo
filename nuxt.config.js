@@ -16,7 +16,8 @@ module.exports = {
   css:[
     '~assets/normalize.css',
     '~assets/common.less',
-    // '~assets/theme.less'
+    '~assets/icons/iconfont.css',
+    // '~/plugins/theme.less'
   ],
   /*
   ** Customize the progress bar color
@@ -53,14 +54,11 @@ module.exports = {
     // 这里的true也可以是一个包含默认配置的对象
   },
   proxy: {  
-    '/rapi': {
-      target: 'https://recommender-api-ms.juejin.im',
-      pathRewrite: { '^/rapi': '' }
-    },
-    '/tapi': {
-      target: 'https://timeline-merger-ms.juejin.im',
-      pathRewrite: { '^/tapi': '' }
-    }
+    // '/rapi': {
+    //   target: 'http://2k16j87776.imwork.net:27425/',
+    //   pathRewrite: { '^/rapi': '' }
+    // }
+    changeOrigin: true,
   },
 }
 

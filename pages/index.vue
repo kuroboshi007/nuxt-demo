@@ -11,9 +11,8 @@
       <div class="links">
         <nuxt-link to="/login" class="button--green">
         Sign In</nuxt-link>
-        <a
-          href="#"
-          class="button--grey">Sign Up</a>
+        <nuxt-link to="/register" class="button--grey">
+        Sign Up</nuxt-link>
       </div>
     </div>
   </section>

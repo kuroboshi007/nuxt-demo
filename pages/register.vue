@@ -1,24 +1,27 @@
 <template>
   <section class="login">
     <Card class="login_con" style="width: 300px;">
-      <p slot="title">欢迎登陆</p>
+      <p slot="title">用户注册</p>
       <Form ref="formInline" :model="formInline" :rules="ruleInline">
-        <FormItem prop="user" class="login_item">
-          <Input type="text" v-model="formInline.user" placeholder="Username">
-          <Icon type="ios-person-outline" slot="prepend"></Icon>
+        <FormItem prop="username" class="login_item">
+          <Input type="text" v-model="formInline.username" placeholder="Username">
+          <Icon type="ios-person-outline" slot="prepend" size="16"></Icon>
           </Input>
         </FormItem>
         <FormItem prop="password" class="login_item">
           <Input type="password" v-model="formInline.password" placeholder="Password">
-          <Icon type="ios-lock-outline" slot="prepend"></Icon>
+          <Icon type="ios-lock-outline" slot="prepend" size="16"></Icon>
           </Input>
         </FormItem>
-        <FormItem>
-          <RadioGroup v-model="formInline.radio">
-            <Radio label="Manager">管理员登录</Radio>
-            <Radio label="Organization">代理商登录</Radio>
-            <Radio label="Consumer">甲方</Radio>
-          </RadioGroup>
+        <FormItem prop="phone" class="login_item">
+          <Input v-model="formInline.phone" placeholder="Password" number>
+          <Icon type="ios-phone-portrait" slot="prepend"  size="16"/>
+          </Input>
+        </FormItem>
+        <FormItem prop="vCode" class="login_item">
+          <Input v-model="formInline.vCode" placeholder="Password" number>
+          <Icon type="ios-phone-portrait" slot="prepend"  size="16"/>
+          </Input>
         </FormItem>
         <FormItem>
           <Button type="primary" long @click="handleSubmit('formInline')">登陆</Button>
@@ -41,7 +44,8 @@ export default {
       formInline: {
         user: 'smalldata',
         password: '123456',
-        radio: 'Manager'
+        phone: '15185175127',
+        vCode: '1234'
       },
       ruleInline: {
         user: [
@@ -82,12 +86,13 @@ export default {
     },
     login() {
       const params = {
-        Manager: this.formInline.Manager,
-        Organization: this.formInline.Organization,
-        Consumer: this.formInline.Consumer
+        user: this.formInline.user,
+        password: this.formInline.password,
+        phone: this.formInline.phone,
+        vCode: this.formInline.vCode
       };
       const response = async(params) => {
-        return await request.post('/rapi/login/checklogin', params)
+        return await request.post('/signup/signupManager', params)
       }
       return new Promise((resolve) => {
         resolve(response(params));

@@ -279,3 +279,7 @@ nuxt.js会根据pages目录自动生成vue路由配置。
 [vue-meta]: https://github.com/declandewet/vue-meta#lists-of-tags 
 [loading]: https://zh.nuxtjs.org/api/configuration-loading 
 [Nuxt Axios Module]: https://axios.nuxtjs.org/ 
+
+
+## admin00
+混合使用iview-admin测试 
