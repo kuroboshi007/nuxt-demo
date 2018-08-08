@@ -10,7 +10,7 @@ export default {
     'X-Requested-With': 'XMLHttpRequest'
   },
   // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL
-  baseURL: 'http://2k16j87776.imwork.net:27425/',
+  // baseURL: 'http://2k16j87776.imwork.net:27425/',
   // 超时设置
   timeout: 10000,
   // 跨域是否带token

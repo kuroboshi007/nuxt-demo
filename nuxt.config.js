@@ -54,11 +54,11 @@ module.exports = {
     // 这里的true也可以是一个包含默认配置的对象
   },
   proxy: {  
-    // '/rapi': {
-    //   target: 'http://2k16j87776.imwork.net:27425/',
-    //   pathRewrite: { '^/rapi': '' }
-    // }
-    changeOrigin: true,
+    '/api': {
+      target: 'http://2k16j87776.imwork.net:27425/',
+      pathRewrite: { '^/api': '' },
+      changeOrigin: true 
+    }
   },
 }
 

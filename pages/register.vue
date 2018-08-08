@@ -92,7 +92,7 @@ export default {
         vCode: this.formInline.vCode
       };
       const response = async(params) => {
-        return await request.post('/signup/signupManager', params)
+        return await request.post('/api/signup/signupManager', params)
       }
       return new Promise((resolve) => {
         resolve(response(params));
