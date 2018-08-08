@@ -4,7 +4,7 @@
       <p slot="title">用户注册</p>
       <Form ref="formInline" :model="formInline" :rules="ruleInline">
         <FormItem prop="username" class="login_item">
-          <Input type="text" v-model="formInline.username" placeholder="Username">
+          <Input type="text" v-model="formInline.username">
           <Icon type="ios-person-outline" slot="prepend" size="16"></Icon>
           </Input>
         </FormItem>
@@ -14,9 +14,10 @@
           </Input>
         </FormItem>
         <FormItem prop="phone" class="login_item">
-          <Input v-model="formInline.phone" placeholder="Password" number>
+          <Input v-model="formInline.phone" placeholder="Password" :number="true" style="width: 50%">
           <Icon type="ios-phone-portrait" slot="prepend"  size="16"/>
           </Input>
+          <Button type="primary">发送验证码</Button>
         </FormItem>
         <FormItem prop="vCode" class="login_item">
           <Input v-model="formInline.vCode" placeholder="Password" number>
@@ -42,13 +43,13 @@ export default {
   data() {
     return {
       formInline: {
-        user: 'smalldata',
+        username: 'smalldata',
         password: '123456',
         phone: '15185175127',
         vCode: '1234'
       },
       ruleInline: {
-        user: [
+        username: [
           { required: true, message: '用户名不能为空！', trigger: 'blur' }
         ],
         password: [
@@ -60,25 +61,21 @@ export default {
   },
   methods: {
     handleSubmit(name) {
+      var self = this;
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!');
           console.log('radio', this.formInline.radio);
 
           this.login().then((res) => {
-            // if (res.s === 1) {
-            //   this.articleList = res.d.entrylist;
-            // }
-            console.log('success!')
+            if (res.code === 200) {
+              self.$Message.success('注册成功，正在跳转');
+              self.$router.push({ path: '/login' });
+            }else{
+              self.$Message.error(res.result[0]);
+
+            }
           })
-          // if(this.formInline.radio ==='manager'){
-          //   this.$router.push({ path: '/mhome' });
-          // }
-          // else if(this.formInline.radio ==='organization_user'){
-          //   this.$router.push({ path: '/ohome' });
-          // }else{
-          //   this.$router.push({ path: '/chome' })
-          // }
+
         } else {
           this.$Message.error('Fail!');
         }
@@ -86,7 +83,7 @@ export default {
     },
     login() {
       const params = {
-        user: this.formInline.user,
+        username: this.formInline.username,
         password: this.formInline.password,
         phone: this.formInline.phone,
         vCode: this.formInline.vCode

@@ -57,7 +57,7 @@ module.exports = {
     '/api': {
       target: 'http://2k16j87776.imwork.net:27425/',
       pathRewrite: { '^/api': '' },
-      changeOrigin: true 
+      // changeOrigin: true 
     }
   },
 }
