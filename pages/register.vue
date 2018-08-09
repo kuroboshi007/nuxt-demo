@@ -10,22 +10,23 @@
         </FormItem>
         <FormItem prop="password" class="login_item">
           <Input type="password" v-model="formInline.password" placeholder="Password">
-          <Icon type="ios-lock-outline" slot="prepend" size="16"></Icon>
+            <Icon type="ios-lock-outline" slot="prepend" size="16"></Icon>
           </Input>
         </FormItem>
         <FormItem prop="phone" class="login_item">
-          <Input v-model="formInline.phone" placeholder="Password" :number="true" style="width: 50%">
-          <Icon type="ios-phone-portrait" slot="prepend"  size="16"/>
+          <Input v-model="formInline.phone" placeholder="Password" :number="true">
+            <!-- <Icon type="ios-phone-portrait" slot="prepend"  size="16"/> -->
+            <Button type="primary" slot="append">发送验证码</Button>
           </Input>
-          <Button type="primary">发送验证码</Button>
         </FormItem>
         <FormItem prop="vCode" class="login_item">
           <Input v-model="formInline.vCode" placeholder="Password" number>
-          <Icon type="ios-phone-portrait" slot="prepend"  size="16"/>
+            <!-- <Icon type="ios-phone-portrait" slot="prepend"  size="16"/> -->
+            <span slot="prepend">请输入验证码</span>
           </Input>
         </FormItem>
         <FormItem>
-          <Button type="primary" long @click="handleSubmit('formInline')">登陆</Button>
+          <Button type="primary" long @click="handleSubmit('formInline')">注册</Button>
         </FormItem>
       </Form>
     </Card>
@@ -70,8 +71,9 @@ export default {
             if (res.code === 200) {
               self.$Message.success('注册成功，正在跳转');
               self.$router.push({ path: '/login' });
+              console.log('注册成功直接跳转主页，不用重新登陆')
             }else{
-              self.$Message.error(res.result[0]);
+              self.$Message.error(res.message);
 
             }
           })

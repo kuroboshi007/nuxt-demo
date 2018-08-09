@@ -4,7 +4,7 @@
       <p slot="title">欢迎登陆</p>
       <Form ref="formInline" :model="formInline" :rules="ruleInline">
         <FormItem prop="user" class="login_item">
-          <Input type="text" v-model="formInline.user" placeholder="Username">
+          <Input type="text" v-model="formInline.username" placeholder="Username">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
           </Input>
         </FormItem>
@@ -14,7 +14,7 @@
           </Input>
         </FormItem>
         <FormItem>
-          <RadioGroup v-model="formInline.radio">
+          <RadioGroup v-model="formInline.type">
             <Radio label="Manager">管理员登录</Radio>
             <Radio label="Organization">代理商登录</Radio>
             <Radio label="Consumer">甲方</Radio>
@@ -22,6 +22,7 @@
         </FormItem>
         <FormItem>
           <Button type="primary" long @click="handleSubmit('formInline')">登陆</Button>
+          <nuxt-link style="text-align: center;display: block;" to="/register">没有账号？点击注册</nuxt-link>
         </FormItem>
       </Form>
     </Card>
@@ -39,12 +40,12 @@ export default {
   data() {
     return {
       formInline: {
-        user: 'smalldata',
+        username: 'smalldata',
         password: '123456',
-        radio: 'Manager'
+        type: 'Manager'
       },
       ruleInline: {
-        user: [
+        username: [
           { required: true, message: '用户名不能为空！', trigger: 'blur' }
         ],
         password: [
@@ -58,23 +59,22 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!');
           console.log('radio', this.formInline.radio);
 
           this.login().then((res) => {
-            // if (res.s === 1) {
-            //   this.articleList = res.d.entrylist;
-            // }
+            if (res.code === 200) {
+              this.$Message.success('Success!');
+              if(this.formInline.radio ==='manager'){
+                this.$router.push({ path: '/mhome' });
+              }
+              else if(this.formInline.radio ==='organization_user'){
+                this.$router.push({ path: '/ohome' });
+              }else{
+                this.$router.push({ path: '/chome' })
+              }
+            }
             console.log('success!')
           })
-          // if(this.formInline.radio ==='manager'){
-          //   this.$router.push({ path: '/mhome' });
-          // }
-          // else if(this.formInline.radio ==='organization_user'){
-          //   this.$router.push({ path: '/ohome' });
-          // }else{
-          //   this.$router.push({ path: '/chome' })
-          // }
         } else {
           this.$Message.error('Fail!');
         }
@@ -82,12 +82,12 @@ export default {
     },
     login() {
       const params = {
-        Manager: this.formInline.Manager,
-        Organization: this.formInline.Organization,
-        Consumer: this.formInline.Consumer
+        username: this.formInline.username,
+        password: this.formInline.password,
+        type: this.formInline.type
       };
       const response = async(params) => {
-        return await request.post('/rapi/login/checklogin', params)
+        return await request.post('/api/login/checklogin', params)
       }
       return new Promise((resolve) => {
         resolve(response(params));
