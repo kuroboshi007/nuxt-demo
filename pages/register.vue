@@ -27,6 +27,7 @@
         </FormItem>
         <FormItem>
           <Button type="primary" long @click="handleSubmit('formInline')">注册</Button>
+          <nuxt-link style="text-align: center;display: block;" to="/login">已有账号？点击登陆</nuxt-link>
         </FormItem>
       </Form>
     </Card>

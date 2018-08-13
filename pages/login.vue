@@ -58,22 +58,22 @@ export default {
   methods: {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
+        var self = this
         if (valid) {
-          console.log('radio', this.formInline.radio);
-
+          // console.log('radio', this.formInline.radio);
           this.login().then((res) => {
             if (res.code === 200) {
-              this.$Message.success('Success!');
-              if(this.formInline.radio ==='manager'){
+              this.$Message.success('登陆成功！');
+              if (this.formInline.radio === 'manager') {
                 this.$router.push({ path: '/mhome' });
-              }
-              else if(this.formInline.radio ==='organization_user'){
+              } else if (this.formInline.radio === 'organization_user') {
                 this.$router.push({ path: '/ohome' });
-              }else{
+              } else {
                 this.$router.push({ path: '/chome' })
               }
+            } else {
+              self.$Message.error(res.message);
             }
-            console.log('success!')
           })
         } else {
           this.$Message.error('Fail!');
