@@ -26,9 +26,10 @@
         </InputNumber>
       </FormItem>
       <FormItem label="总次数" prop="total">
-        <InputNumber v-model="formValidate.total"
-            :formatter="value => `${value}次`"
-            :parser="value => value.replace('次', '')">
+        <InputNumber 
+          v-model="formValidate.total"
+          :formatter="value => `${value}次`"
+          :parser="value => value.replace('次', '')">
         </InputNumber>
       </FormItem>
       <FormItem label="收集期限" prop="duration">
@@ -59,8 +60,8 @@ export default {
         date: '',
         time: '',
         desc: '',
-        total: '',
-        price: '',
+        total: null,
+        price: null,
       },
       ruleValidate: {
         name: [
