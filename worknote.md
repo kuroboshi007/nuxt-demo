@@ -1,6 +1,5 @@
-## 页面
 
-### 采集任务
+# 采集任务
 
 甲方信息管理
 团体信息管理
@@ -13,7 +12,7 @@
 /login/checkConsumerLogin
 /login/checkOrganizationLogin
 
-#### 状态
+### 状态
 > 任务包,针对sd_collect_task表中的整体任务状态值的修改:
 1已发布(平台管理员发布)->2已开始(团队管理员接收或到时自动修改)->3已满额->4待审核(团队管理员提交任务)->5审核失败(平台管理员审核)->6审核成功(平台管理员审核)->->7待验收(平台管理员提交)->8验收失败(甲方管理员验收)->9验收成功(甲方管理员验收)->10已结算->11废弃
 
@@ -147,8 +146,6 @@
 5. 切换tab时，显示暂无数据提示
 
 
-
-
 #### 下周待解决问题 9/17-9/21
 
 1. 管理员抽检团队任务，审核是否成功评判机制 
@@ -158,7 +155,7 @@
    后端返回状态，判断是否可以进行提交，取代以下代码
    taskData.sumCount>=taskData.count && taskData.status ==5 && taskData.parentId === null
 
-##### 管理员抽检团队任务，审核评判机制
+管理员抽检团队任务，审核评判机制
 
 
 
@@ -230,6 +227,8 @@ ruleTime      约束时长
 #### 状态更改 
 1. 已满额(status=3) + 
 任务剩余次数==0 状态为已满额
+2. 已过期 status=12 +
+任务超过截止日期
 
 
 #### 字段更改 
@@ -306,3 +305,59 @@ Q 任务改变状态重新开始后，可以直接提交
 发布任务 
 数据审核  -->
 
+
+验收和审核列表，userName为null
+单条任务 finishTime为null
+任务状态 +过期
+
+状态改为枚举 
+
+
+##### 任务包
+
+已发布 IS_ISSUE(1),
+已开始 IS_START(2),
+已满额 FULFIL_QUOTA(3),
+待审核 FOR_INSPECTION(4),
+审核失败 INSPECTION_ERROR(5),
+审核成功 INSPECTION_PASS(6),
+待验收 FOR_ACCEPTANCE(7),
+验收失败 ACCEPTANCE_ERROR(8),
+验收成功 ACCEPTANCE_SUCCESS(9),
+已结算 IS_CLOSE_ACCOUNT(10),
+废弃 DISCARD(11);
+
+##### 单条任务
+
+已开始 IS_START(1),
+暂存 HOLD(2),
+待检验 FOR_CHECKOUT(3),
+检验失败 CHECKOUT_ERROR(4),
+检验成功 CHECKOUT_PASS(5),
+待审核 FOR_INSPECTION(6),
+审核失败 INSPECTION_ERROR(7),
+审核成功 INSPECTION_PASS(8),
+验收失败 ACCEPTANCE_ERROR(9),
+验收成功 ACCEPTANCE_SUCCESS(10),
+已结算 IS_CLOSE_ACCOUNT(11);
+
+
+-----
+
+# 标注任务 
+
+## 标注前台
+
+
+管理员 代理商 甲方 
+
+
+未质检预设值（峰值） 未质检通过率 
+
+管理员抽检 -> 失败-> 代理商重做
+
+
+发布相关页面
+ 约束：当前任务包可错误次数 ruleErrorPackage
+ 约束：当前单条任务可错误次数 ruleErrorSingle
+发布 
