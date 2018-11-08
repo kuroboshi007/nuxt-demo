@@ -121,13 +121,15 @@ $ npm install iview --save
 2. 引用 
 
 ```js
-1. plugins/iview.js配置文件中，引入iview
+// 1. 
+plugins/iview.js配置文件中，引入iview
   import Vue from 'vue'
   import iView from 'iview';
 
 Vue.use(iView);
 
-2. /nuxt.config.js增加plugins并引入iview.js
+// 2. 
+nuxt.config.js增加plugins并引入iview.js
   plugins: [
     { src: '~/plugins/iview.js', ssr: true }
   ],
@@ -283,3 +285,4 @@ nuxt.js会根据pages目录自动生成vue路由配置。
 
 ## admin00
 混合使用iview-admin测试 
+Login | Register

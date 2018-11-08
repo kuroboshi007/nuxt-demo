@@ -361,3 +361,30 @@ Q 任务改变状态重新开始后，可以直接提交
  约束：当前任务包可错误次数 ruleErrorPackage
  约束：当前单条任务可错误次数 ruleErrorSingle
 发布 
+
+
+注册
+/api/signup/signUpAdmin
+验证码
+/api/signup/obtainSms
+登陆
+/api/login/checkAdminLogin
+
+
+项目名称 name
+项目描述 description
+归属甲方id customer_id
+
+标注类型 type
+1.视频
+2.音频
+3.图片
+
+是否是多期 multi
+分类id，从classify查询 classify_id
+
+
+
+
+
+
